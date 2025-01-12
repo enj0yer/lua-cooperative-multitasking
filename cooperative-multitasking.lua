@@ -119,7 +119,6 @@ function LuroutineContainer:process()
 end
 
 
----@class async
 local async = {
     container = LuroutineContainer,
     luro = Luroutine
