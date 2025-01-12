@@ -6,7 +6,6 @@ local container = multitasking.container:new({})
 function Process(filename, iters)
     for i = 1, iters, 1 do
         print(string.format("Processing filename %s: %d%%", filename, math.floor(i / iters * 100)))
-        io.popen("ls")
         coroutine.yield()
     end
 end
