@@ -49,13 +49,22 @@ local Luroutine = {
 }
 Luroutine.__index = Luroutine
 
----@param co thread
+---@param co thread|fun(v: any):any
 ---@param ... any
 ---@return Luroutine
 function Luroutine:new(co, ...)
     ---@class Luroutine
     local obj = setmetatable({}, Luroutine)
-    obj.coro = co
+    local coro
+    if type(co) == "thread" then
+        coro = co
+    elseif type(co) == "function" then
+        coro = coroutine.create(co)
+    else
+        error("Parameter co must be an thread or a function")
+    end
+    
+    obj.coro = coro
     obj.args = {...}
     return obj
 end
