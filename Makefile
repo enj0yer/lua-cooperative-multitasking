@@ -1,8 +1,9 @@
 LUAPATH = 
 
-ENTRY = example.lua
+.PHONY = example printing
 
-OPTIONS = 
+example:
+	$(LUAPATH) example.lua
 
-example: $(ENTRY)
-	$(LUAPATH) $(ENTRY)
+printing:
+	$(LUAPATH) printing-example.lua
