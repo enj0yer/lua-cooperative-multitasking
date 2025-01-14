@@ -8,7 +8,7 @@ function ProcessFile(filename, index)
 
     local rownum = 1
     for line in file:lines() do
-        print(string.format("Coro: %d: Line %d of file %s: %s", index, rownum, filename, line))
+        print(string.format("Num: %d, file: %s, data: %s", index, filename, line))
         rownum = rownum + 1
         coroutine.yield()
     end
@@ -17,7 +17,7 @@ end
 
 local lurs = {
     async.luro:new(coroutine.create(ProcessFile), "data3.txt", 1),
-    async.luro:new(ProcessFile, "data2.txt", 2),
+    async.luro:new(ProcessFile, "data4.txt", 2),
     async.luro:new(coroutine.create(ProcessFile), "data3.txt", 3),
     async.luro:new(coroutine.create(ProcessFile), "data2.txt", 4),
     async.luro:new(ProcessFile, "data1.txt", 5),
@@ -30,4 +30,4 @@ local lurs = {
 }
 
 local container = async.container:new(lurs)
-container:process()
+container:poll(8)

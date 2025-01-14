@@ -99,7 +99,7 @@ function LuroutineContainer:appendLurs(lurs)
     self:setLurs(oldLurs)
 end
 
-function LuroutineContainer:pend()
+function LuroutineContainer:step()
     local luro = self.queue:dequeue()
     if luro == nil then
         return
@@ -121,9 +121,13 @@ function LuroutineContainer:pend()
     end
 end
 
-function LuroutineContainer:process()
-    while not self.queue:isEmpty() do
-        self:pend()
+function LuroutineContainer:poll(steps)
+    local base = steps == nil and -1 or steps
+    while not self.queue:isEmpty() and base ~= 0 do
+        self:step()
+        if base ~= -1 then
+            base = base - 1
+        end
     end
 end
 
